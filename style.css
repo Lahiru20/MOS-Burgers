@@ -1,0 +1,101 @@
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+
+.product-container-burgers, .product-container-submarine, .product-container-fries, .product-container-pasta, .product-container-chicken, .product-container-beverages{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1.2rem;
+    justify-content: center;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.item-collection-div{
+    margin-top: 30px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 30px;
+}
+
+.user-data-div{
+    display: flex;
+    gap: 10px;
+    margin-left:10px;
+}
+
+.sub-ud{
+    padding-top: 10px;
+}
+
+
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+input[type="number"] {
+    width: 100px; 
+    padding: 10px;
+    border: 2px solid #007BFF; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    transition: border-color 0.3s;
+}
+
+
+input[type="number"]:focus {
+    border-color: #0056b3; 
+    outline: none; 
+}
+
+input[type="number"]:invalid {
+    border-color: #dc3545; 
+}
+
+
+input[type="number"]:valid {
+    border-color: #28a745;
+}
+
+
+  
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td , tr {
+    text-align: left;
+    border-collapse: collapse;
+    border: 1px solid #ddd !important;
+    padding: 8px;
+  }
+  
+  
+  th {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+
