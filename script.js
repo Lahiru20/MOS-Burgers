@@ -1,9 +1,7 @@
 const food_item_div = document.getElementById("food-item-container");
+const btn_confirm_order = document.getElementById("btn-confirm-order");
+const btn_add_customer = document.getElementById("btn-add-customer");
 
-const phone_no_txt = document.getElementById("phone_no_txt").value;
-const name_txt = document.getElementById("name_txt").value;
-const address_txt = document.getElementById("address_txt").value;
-const btn_add_order = document.getElementById("btn-add-order");
 
 const tablemain = document.getElementById("tablemain");
 
@@ -72,19 +70,7 @@ const menuItems = [
 let CartArray = [];
 let CustomerArray = [];
 
-console.log(CustomerArray.length);
-console.log(btn_add_order);
 
-
-function OrderButtonStats() {
-    if(CustomerArray.length < 1){
-        btn_add_order.innerHTML = `<input type="submit" value="ADD Customer" id="btn-add-order">`
-    }else{
-        btn_add_order.innerHTML = `<input type="submit" value="ADD ORDER" id="btn-add-order">` 
-    }
-}
-
-OrderButtonStats();
 
 
 class Customer {
@@ -111,7 +97,44 @@ function AddOrder(itemCode, itemName, qty,price) {
     const order = new Order(itemCode, itemName, qty,price);
     CartArray.push(order);
     console.log(CartArray);
+    alert("Item is added to the Cart")
+
+    tablemain.innerHTML = 
+    `
+    <tr>
+    <td colspan="4">CART</td>
+    </tr>
+
+    <tr>
+    <td>Item Code</td>
+    <td>Item Name</td>
+    <td>Qty</td>
+    <td>Price</td>
+    </tr>
+
+    `
+
+
+        let i = 0;
+        CartArray.forEach(element => {
+        tablemain.innerHTML += 
+            `
+            <tr>
+                <td>${element.itemCode}</td>
+                <td>${element.itemName}</td>
+                <td>${element.qty}</td>
+                <td>${element.price}</td>
+            </tr>
+        
+            `
+            
+            i++;
+        }
+    );
+
+    LoadItems();
 }
+
 
 function LoadItems() {
     food_item_div.innerHTML = ``;
@@ -149,11 +172,24 @@ function LoadItems() {
 
 LoadItems();
 
+function AddCustomer(){
+
+    let phone_no = document.getElementById('phone_no_txt').value;
+    let name = document.getElementById('name_txt').value;
+    let address = document.getElementById('address_txt').value;
+
+    let newCustomer = new Customer(phone_no, name, address);
+    CustomerArray.push(newCustomer); 
+
+    console.log(CustomerArray);
+
+}
+
 
 function AddOrdertoCustomer() {
-    let phone_no = phone_no_txt;
-    let name = name_txt;
-    let address = address_txt;
+    let phone_no = document.getElementById('phone_no_txt').value;
+    let name = document.getElementById('name_txt').value;
+    let address = document.getElementById('address_txt').value;
 
     
     let existingCustomer = CustomerArray.find(customer => customer.phone_no === phone_no);
@@ -173,57 +209,51 @@ function AddOrdertoCustomer() {
 
     CartArray = [];
     console.log("Cart cleared after adding to customer orders.");
-    GenerateTable();
-    OrderButtonStats();
-    LoadItems();
-}
 
-function GenerateTable(){
-    tablemain.innerHTML = ``;
-    CustomerArray.forEach(element => {
-    tablemain.innerHTML +=
-        `
-    <tr class="thead">
-        <td>Phone No : ${element.phone_no}</td>
-        <td>Name : ${element.name}</td>
-        <td colspan="2">Address : ${element.address}</td>
-    </tr>
-        `
-    tablemain.innerHTML += 
+    alert("Order Confirmed!")
+
+    tablemain.innerHTML = 
     `
     <tr>
-        <td colspan="4">ORDERS</td>
+    <td colspan="4">CART</td>
     </tr>
-    
+
     <tr>
     <td>Item Code</td>
     <td>Item Name</td>
     <td>Qty</td>
     <td>Price</td>
     </tr>
-    
+
     `
-    element.orders.forEach(element => {
-    tablemain.innerHTML += 
-        `
-        <tr>
-            <td>${element.itemCode}</td>
-            <td>${element.itemName}</td>
-            <td>${element.qty}</td>
-            <td>${element.price}</td>
-        </tr>
+
+
+        let i = 0;
+        CartArray.forEach(element => {
+        tablemain.innerHTML += 
+            `
+            <tr>
+                <td>${element.itemCode}</td>
+                <td>${element.itemName}</td>
+                <td>${element.qty}</td>
+                <td>${element.price}</td>
+            </tr>
+        
+            `
+            
+            i++;
+        }
+    );
+
+    LoadItems();
+
+    console.log(CustomerArray);
+
     
-        `
-    });
-
-    });
-
-
 }
 
-
-btn_add_order.addEventListener("click", AddOrdertoCustomer);
-
+btn_confirm_order.addEventListener("click",AddOrdertoCustomer);
+btn_add_customer.addEventListener("click",AddCustomer);
 
 
 
