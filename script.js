@@ -2,7 +2,10 @@ const food_item_div = document.getElementById("food-item-container");
 const btn_confirm_order = document.getElementById("btn-confirm-order");
 const btn_add_customer = document.getElementById("btn-add-customer");
 
+const load_admin = document.getElementById("load-admin");
+const load_menu = document.getElementById("load-menu");
 
+const root = document.getElementById("root")
 const tablemain = document.getElementById("tablemain");
 
 
@@ -214,16 +217,6 @@ function AddOrdertoCustomer() {
 
     tablemain.innerHTML = 
     `
-    <tr>
-    <td colspan="4">CART</td>
-    </tr>
-
-    <tr>
-    <td>Item Code</td>
-    <td>Item Name</td>
-    <td>Qty</td>
-    <td>Price</td>
-    </tr>
 
     `
 
@@ -252,8 +245,145 @@ function AddOrdertoCustomer() {
     
 }
 
+function LoadAdminHTML(){
+    root.innerHTML = ``;
+    root.innerHTML += 
+    `
+<table id="order-history-table">
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone Number</th>
+          <th>Orders</th>
+      </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+    
+    `
+
+    generateOrderHistoryTable();
+    food_item_div.style.display = "none";
+}
+
+function LoadHomeHTML(){
+    root.innerHTML = ``;
+    root.innerHTML += 
+    `
+    <div class="item-collection-div">
+
+    <h2>Food Items</h2>
+
+    `
+    food_item_div.style.display = "flex";
+
+}
+
 btn_confirm_order.addEventListener("click",AddOrdertoCustomer);
 btn_add_customer.addEventListener("click",AddCustomer);
+
+load_admin.addEventListener("click",LoadAdminHTML);
+load_menu.addEventListener("click",LoadHomeHTML);
+
+
+
+
+
+
+// Admin
+
+function generateOrderHistoryTable() {
+    const tableBody = document.getElementById('order-history-table').getElementsByTagName('tbody')[0];
+
+
+    tableBody.innerHTML = '';
+
+
+    CustomerArray.forEach((customer, customerIndex) => {
+
+        const customerRow = tableBody.insertRow(customerIndex);
+
+
+        const customerCell = customerRow.insertCell(0);
+        customerCell.innerHTML = customer.name;
+
+        const addressCell = customerRow.insertCell(1);
+        addressCell.innerHTML = customer.address;
+
+        const phoneNoCell = customerRow.insertCell(2);
+        phoneNoCell.innerHTML = customer.phone_no;
+
+
+        const ordersCell = customerRow.insertCell(3);
+        ordersCell.innerHTML = '';
+
+ 
+        const ordersTable = document.createElement('table');
+        ordersTable.style.width = '100%';
+        ordersTable.style.borderCollapse = 'collapse';
+
+
+        const ordersTableHeader = ordersTable.createTHead();
+        const ordersTableRow = ordersTableHeader.insertRow(0);
+
+        const itemCodeHeader = ordersTableRow.insertCell(0);
+        itemCodeHeader.innerHTML = 'Item Code';
+
+        const itemNameHeader = ordersTableRow.insertCell(1);
+        itemNameHeader.innerHTML = 'Item Name';
+
+        const qtyHeader = ordersTableRow.insertCell(2);
+        qtyHeader.innerHTML = 'Quantity';
+
+        const priceHeader = ordersTableRow.insertCell(3);
+        priceHeader.innerHTML = 'Price';
+
+
+
+        const ordersTableBody = ordersTable.createTBody();
+
+
+        customer.orders.forEach((order, orderIndex) => {
+            const orderRow = ordersTableBody.insertRow(orderIndex);
+
+            const itemCodeCell = orderRow.insertCell(0);
+            itemCodeCell.innerHTML = order.itemCode;
+
+
+            const itemNameCell = orderRow.insertCell(1);
+            itemNameCell.innerHTML = order.itemName;
+
+
+            const qtyCell = orderRow.insertCell(2);
+            qtyCell.innerHTML = order.qty;
+
+
+            const priceCell = orderRow.insertCell(3);
+            priceCell.innerHTML = order.price;
+
+        });
+
+
+        ordersCell.appendChild(ordersTable);
+    });
+}
+
+function Logout(){
+    window.location.href = '\login.html';
+}
+
+
+const logout_btn = document.getElementById("logout-btn");
+
+logout_btn.addEventListener("click",Logout);
+
+
+
+
+
+
 
 
 

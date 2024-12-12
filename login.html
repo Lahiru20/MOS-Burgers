@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.logo{
+    aspect-ratio: 21/9;
+    width: 200px;
+}
+
+.logo-div{
+    display: flex;
+    justify-content: center;
+}
+
+.login-container {
+    width: 300px;
+    margin: 10% auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form label {
+    margin-bottom: 10px;
+}
+
+#login-form input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-btn {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#login-btn:hover {
+    background-color: #3e8e41;
+}
+
+#error-message {
+    color: #f00;
+    font-size: 14px;
+    margin-top: 10px;
+}
+    </style>
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-div">
+            <img class="logo" src="images/mos-logo.png" alt="MOS BURGERS" >
+        </div>
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+
+            <button id="login-btn">Login</button>
+        </form>
+        <p id="error-message"></p>
+    </div>
+
+    <script>
+
+const username = "Lahiru";
+const password = "1234";
+
+
+const form = document.getElementById("login-form");
+const errorMessage = document.getElementById("error-message");
+
+
+form.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+
+    const inputUsername = document.getElementById("username").value;
+    const inputPassword = document.getElementById("password").value;
+
+
+    if (inputUsername === username && inputPassword === password) {
+        window.location.href = '\index.html';
+    } else {
+
+        errorMessage.textContent = "Invalid username or password";
+    }
+});
+
+    </script>
+</body>
+</html>
